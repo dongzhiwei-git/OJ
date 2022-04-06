@@ -1,0 +1,44 @@
+---
+#文件名:   app.yaml
+#内容:     主配置文件，业务相关配置
+#是否必须:  是
+
+#服务描述相关
+qms.service:
+  app_id: fans-sub  #跟paasID
+  app_name: Qukan.duozhuami #中台定义应用明
+  env: dev            #[dev, qa, mt, pg, pre, prd]
+  #  version: 0.0.1      #服务版本号，默认是0.0.1
+  rest: #监听某个端口，提供restful服务
+    address: "0.0.0.0:20006"  #监听地址，如果监听本机所有ip，则ip采用0.0.0.0
+#  grpc:               #监听某个端口，提供grpc服务
+#    address: "0.0.0.0:12001"  #监听地址，如果监听本机所有ip，则ip采用0.0.0.0
+#    grpcurl_enabled: true
+
+gconfig:
+  addr: "dconfig-agent.qttcs3.cn:15000" # 动态配置，测试环境不用安装agent
+  saddr: "dconfig-agent.qttcs3.cn:15000" # 兜底配置
+  appid: 41 # 线上25
+
+
+#mysql相关
+mysql:
+  master: #mysql实例名称，作为key用于表示某个mysql实例，自定义命名, 例如: local, master, slave, feed_master, ...
+    dsn: "root:root@tcp(101.43.55.108:3306)/jol?charset=utf8mb4&parseTime=True&loc=Local"  #[MUST]
+    dial_timeout: 5000    #连接超时时间, 单位: millisecond, {default: 5000}
+    read_timeout: 5000    #读超时时间, 单位：millisecond, {default: 5000}
+    write_timeout: 3000   #写超时时间, 单位：millisecond, {default: 3000}
+    max_open_conns: 256   #最大连接数大小, {default: 256}
+    max_idle_conns: 10    #最大空闲的连接的个数, {default: 10}
+    max_life_conns: 0     #连接的生命时间,超过此时间，连接将关闭后重新建立新的，0代表忽略相关判断,单位:second, {default: 0}
+    debug_sql: true      #是否开启debug, {default: false}
+
+  slave: #mysql实例名称，作为key用于表示某个mysql实例，自定义命名, 例如: local, master, slave, feed_master, ...
+    dsn: "root:root@tcp(101.43.55.108:3306)/jol?charset=utf8mb4&parseTime=True&loc=Local"  #[MUST]
+    dial_timeout: 5000    #连接超时时间, 单位: millisecond, {default: 5000}
+    read_timeout: 5000    #读超时时间, 单位：millisecond, {default: 5000}
+    write_timeout: 3000   #写超时时间, 单位：millisecond, {default: 3000}
+    max_open_conns: 256   #最大连接数大小, {default: 256}
+    max_idle_conns: 10    #最大空闲的连接的个数, {default: 10}
+    max_life_conns: 0     #连接的生命时间,超过此时间，连接将关闭后重新建立新的，0代表忽略相关判断,单位:second, {default: 0}
+    debug_sql: true      #是否开启debug, {default: false}
