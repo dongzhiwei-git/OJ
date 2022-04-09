@@ -1,7 +1,6 @@
 package conf
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 
@@ -33,6 +32,6 @@ func Init() error {
 		log.Println("yaml parse error", err)
 	}
 	yaml.Unmarshal(config, &conf)
-	fmt.Print("qwe", conf.Mysql.Master.Dsn)
+	//fmt.Print("qwe", conf.Mysql.Master.Dsn)
 	return nil
 }
