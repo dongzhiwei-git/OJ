@@ -6,23 +6,22 @@ import (
 )
 
 type Problem struct {
-	ProblemId    int32     `gorm:"problem_id"`
-	Title        string    `gorm:"title"`
-	Description  string    `gorm:"description"`
-	Input        string    `gorm:"input"`
-	Output       string    `gorm:"output"`
-	SampleInput  string    `gorm:"sample_input"`
-	SampleOutput string    `gorm:"sample_output"`
-	Spj          string    `gorm:"spj"`
-	Hint         string    `gorm:"hint"`
-	Source       string    `gorm:"source"`
-	InDate       time.Time `gorm:"in_date"`
-	TimeLimit    int32     `gorm:"time_limit"`
-	MemoryLimit  int32     `gorm:"memory_limit"`
-	Defunct      string    `gorm:"defunct"`
-	Accepted     int32     `gorm:"accepted"`
-	Submit       int32     `gorm:"submit"`
-	Solved       int32     `gorm:"solved"`
+	Title        string    `gorm:"title"         json:"title"         binding:"required"`
+	Description  string    `gorm:"description"   json:"description"   binding:"required"`
+	Input        string    `gorm:"input"         json:"input"         binding:"required"`
+	Output       string    `gorm:"output"        json:"output"        binding:"required"`
+	SampleInput  string    `gorm:"sample_input"  json:"sample_input"  binding:"required"`
+	SampleOutput string    `gorm:"sample_output" json:"sample_output" binding:"required"`
+	Spj          string    `gorm:"spj"           json:"spj"           binding:"required"`
+	Hint         string    `gorm:"hint"          json:"hint"`
+	Source       string    `gorm:"source"        json:"source"        binding:"required"`
+	InDate       time.Time `gorm:"in_date"       json:"in_date"`
+	TimeLimit    int32     `gorm:"time_limit"    json:"time_limit"    binding:"required"`
+	MemoryLimit  int32     `gorm:"memory_limit"  json:"memory_limit"  binding:"required"`
+	Defunct      string    `gorm:"defunct"       json:"defunct"`
+	Accepted     int32     `gorm:"accepted"      json:"accepted"`
+	Submit       int32     `gorm:"submit"        json:"submit"`
+	Solved       int32     `gorm:"solved"        json:"solved"`
 }
 
 func (Problem) TableName() string {
@@ -119,27 +118,7 @@ func stringToint32(str string) int32 {
 //	return pro, nil
 //}
 //
-//func AddProblem(data []string, inDate time.Time) (int64, error) {
-//	var pro Problem
-//	pro.Title = data[0]
-//	pro.TimeLimit = stringToint32(data[1])
-//	pro.MemoryLimit = stringToint32(data[2])
-//	pro.Description = data[3]
-//	pro.Input = data[4]
-//	pro.Output = data[5]
-//	pro.SampleInput = data[6]
-//	pro.SampleOutput = data[7]
-//	pro.Hint = data[8]
-//	pro.Spj = data[9]
-//	pro.InDate = inDate
-//	pro.Defunct = "N"
-//
-//	pid, err := DB.Insert(&pro)
-//	if err != nil {
-//		return pid, err
-//	}
-//	return pid, nil
-//}
+
 //
 //func BatchAddProblem(problems []types.Problem) (map[int32]int64, error) {
 //	//TOTO 加上事务

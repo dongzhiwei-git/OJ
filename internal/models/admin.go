@@ -2,7 +2,7 @@ package models
 
 type SysUser struct {
 	Id       int    `gorm:"id" json:"id" form:"id"`
-	UserName string `gorm:"user_name" json:"user_name" from:"user_name"`
+	UserName string `gorm:"user_name"  json:"user_name" from:"user_name"`
 	Password string `gorm:"password" json:"password" from:"password"`
 }
 
