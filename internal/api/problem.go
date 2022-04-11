@@ -35,26 +35,22 @@ func QueryAllProblem(ctx *gin.Context) {
 // FileUpload 上传测试数据zip
 func FileUpload(ctx *gin.Context) {
 
-	file,  err := ctx.FormFile("file")
+	file, err := ctx.FormFile("file")
 	key := time.Now().String()
-	//f, h, err := this.GetFile("file")
-	zipDir := OJ_ZIP_TEMP_DATA + key
+	//zipDir := OJ_ZIP_TEMP_DATA + key
 	if err != nil {
-		log.Fatal("[api.FileUpload]", err)
+		log.Println("[api.FileUpload]", err)
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": "文件上传失败, name因用file"})
 		return
 	}
-	//filePath := filepath.Join(utils.Mkdir("upload"), "/", fileName)
 
 	// 保存文件
-	err2 := ctx.SaveUploadedFile(file, zipDir)
+	dir := "/Users/apple/test/" + key + file.Filename
+	err = ctx.SaveUploadedFile(file, dir)
 
-	if err2 != nil {
-		//logs.Error(err2)
+	if err != nil {
+		log.Println(err)
 	}
 
-	//err1 := this.SaveToFile("file", OJ_ZIP_TEMP_DATA+"/"+key+h.Filename)
-	//if err1 != nil {
-	//	this.JsonErr("文件上传错误", 24005, "")
-	//}
-
+	ctx.JSON(http.StatusOK, gin.H{"msg": "上传成功"})
 }
