@@ -6,7 +6,6 @@ import (
 	"inherited/internal/services"
 	"log"
 	"net/http"
-	"os"
 	"time"
 )
 
@@ -36,17 +35,19 @@ func QueryAllProblem(ctx *gin.Context) {
 // FileUpload 上传测试数据zip
 func FileUpload(ctx *gin.Context) {
 
+	file,  err := ctx.FormFile("file")
 	key := time.Now().String()
 	//f, h, err := this.GetFile("file")
-	zipDir := OJ_ZIP_TEMP_DATA
-	file, err := os.OpenFile(zipDir, os.O_CREATE, os.ModePerm)
-	defer file.Close()
+	zipDir := OJ_ZIP_TEMP_DATA + key
 	if err != nil {
 		log.Fatal("[api.FileUpload]", err)
 		return
 	}
+	//filePath := filepath.Join(utils.Mkdir("upload"), "/", fileName)
 
-	err2 := os.Mkdir(zipDir, os.ModePerm)
+	// 保存文件
+	err2 := ctx.SaveUploadedFile(file, zipDir)
+
 	if err2 != nil {
 		//logs.Error(err2)
 	}

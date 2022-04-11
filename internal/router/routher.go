@@ -18,8 +18,9 @@ func InitRouter() {
 		ctx.JSON(http.StatusOK, nil)
 	})
 
-	r.GET("problem", api.QueryAllProblem)
-
+	r.GET("/problem", api.QueryAllProblem)
+	// 保存测试数据
+	r.POST("/upload", api.FileUpload)
 	var admin = r.Group("/admin")
 	{
 		admin.POST("/reg", api.CreateAdminUser)
