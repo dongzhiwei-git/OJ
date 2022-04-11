@@ -20,9 +20,10 @@ func InitRouter() {
 
 	r.GET("/problem", api.QueryAllProblem)
 	// 保存测试数据
-	r.POST("/upload", api.FileUpload)
+
 	var admin = r.Group("/admin")
 	{
+		admin.POST("/upload", api.FileUpload)
 		admin.POST("/reg", api.CreateAdminUser)
 	}
 
