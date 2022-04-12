@@ -37,7 +37,8 @@ func FileUpload(ctx *gin.Context) {
 
 	file, err := ctx.FormFile("file")
 	key := time.Now().Format("2006-01-02 15:04:05")
-	zipDir := OJ_ZIP_TEMP_DATA + key
+	zipDir := OJ_ZIP_TEMP_DATA + key + file.Filename
+	fileName := key+file.Filename
 	if err != nil {
 		log.Println("[api.FileUpload]", err)
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": "文件上传失败, name因用file"})
@@ -53,12 +54,12 @@ func FileUpload(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
-		"msg": "上传成功",
-		"filePath": zipDir,
+		"msg":      "上传成功",
+		"fileName": fileName,
 	})
 }
 
-func AddProblem(ctx *gin.Context){
+func AddProblem(ctx *gin.Context) {
 	//data := models.Problem{}
 	//err := ctx.ShouldBindJSON(&data)
 
