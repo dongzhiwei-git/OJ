@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"inherited/internal/models"
 	"inherited/internal/pkg"
 	"inherited/internal/services"
 	"log"
@@ -63,7 +64,11 @@ func FileUpload(ctx *gin.Context) {
 }
 
 func AddProblem(ctx *gin.Context) {
-	//data := models.Problem{}
-	//err := ctx.ShouldBindJSON(&data)
+	data := models.Problem{}
+	err := ctx.ShouldBindJSON(&data)
+	if err != nil {
+		log.Println(err)
+		return
+	}
 
 }

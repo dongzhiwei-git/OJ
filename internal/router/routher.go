@@ -25,7 +25,7 @@ func InitRouter() {
 	{
 		admin.POST("/upload", api.FileUpload)
 		admin.POST("/reg", api.CreateAdminUser)
-		admin.POST("/add", api.AddProblem)
+		admin.POST("/add_problem", api.AddProblem)
 	}
 
 	// setup listen

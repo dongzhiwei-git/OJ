@@ -1,23 +1,23 @@
 package models
 
 import (
-	"strconv"
 	"time"
 )
 
 type Problem struct {
+	ProblemId    int64     `gorm:"problem_id"`
 	Title        string    `gorm:"title"         json:"title"         binding:"required"`
 	Description  string    `gorm:"description"   json:"description"   binding:"required"`
 	Input        string    `gorm:"input"         json:"input"         binding:"required"`
 	Output       string    `gorm:"output"        json:"output"        binding:"required"`
-	SampleInput  string    `gorm:"sample_input"  json:"sample_input"  binding:"required"`
-	SampleOutput string    `gorm:"sample_output" json:"sample_output" binding:"required"`
+	SampleInput  string    `gorm:"sample_input"  json:"sampleInput"   binding:"required"`
+	SampleOutput string    `gorm:"sample_output" json:"sampleOutput"  binding:"required"`
 	Spj          string    `gorm:"spj"           json:"spj"           binding:"required"`
 	Hint         string    `gorm:"hint"          json:"hint"`
 	Source       string    `gorm:"source"        json:"source"        binding:"required"`
-	InDate       time.Time `gorm:"in_date"       json:"in_date"`
-	TimeLimit    int32     `gorm:"time_limit"    json:"time_limit"    binding:"required"`
-	MemoryLimit  int32     `gorm:"memory_limit"  json:"memory_limit"  binding:"required"`
+	InDate       time.Time `gorm:"in_date"       json:"inDate"`
+	TimeLimit    int32     `gorm:"time_limit"    json:"timeLimit"     binding:"required"`
+	MemoryLimit  int32     `gorm:"memory_limit"  json:"memoryLimit"   binding:"required"`
 	Defunct      string    `gorm:"defunct"       json:"defunct"`
 	Accepted     int32     `gorm:"accepted"      json:"accepted"`
 	Submit       int32     `gorm:"submit"        json:"submit"`
@@ -29,10 +29,7 @@ func (Problem) TableName() string {
 	return "problem"
 }
 
-func stringToint32(str string) int32 {
-	d, _ := strconv.Atoi(str)
-	return int32(d)
-}
+
 
 //func (pr *Problem)QueryAllProblem() ([]*Problem, int64, error) {
 //	var pro []*Problem

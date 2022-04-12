@@ -6,6 +6,7 @@ import (
 	"inherited/internal/services"
 	"log"
 	"testing"
+	"time"
 )
 
 func TestCreateSysUser(t *testing.T) {
@@ -21,7 +22,6 @@ func TestCreateSysUser(t *testing.T) {
 
 }
 
-
 func TestQueryAllProblem(t *testing.T) {
 
 	if err := internal.Init(); err != nil {
@@ -35,4 +35,18 @@ func TestQueryAllProblem(t *testing.T) {
 
 }
 
+func TestAddProblem(t *testing.T) {
 
+	if err := internal.Init(); err != nil {
+		log.Println("Init failed." + err.Error())
+		return
+	}
+
+	problem := new(services.Problem)
+	data := []string{
+		"1", "2", "2", "3", "2","2","2","2","2","2",
+	}
+	info := problem.AddProblem(data, time.Now())
+	fmt.Println(info)
+
+}
