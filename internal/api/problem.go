@@ -58,7 +58,7 @@ func FileUpload(ctx *gin.Context) {
 	})
 }
 
-func AddProblem(ctx gin.Context){
+func AddProblem(ctx *gin.Context){
 	//data := models.Problem{}
 	//err := ctx.ShouldBindJSON(&data)
 
