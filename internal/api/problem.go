@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"inherited/internal/pkg"
 	"inherited/internal/services"
 	"log"
 	"net/http"
@@ -37,8 +38,9 @@ func FileUpload(ctx *gin.Context) {
 
 	file, err := ctx.FormFile("file")
 	key := time.Now().Format("2006-01-02 15:04:05")
-	zipDir := OJ_ZIP_TEMP_DATA + key + file.Filename
-	fileName := key+file.Filename
+	key = pkg.MD5(key)
+	zipDir := OJ_ZIP_TEMP_DATA + "/" + key + file.Filename
+
 	if err != nil {
 		log.Println("[api.FileUpload]", err)
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": "文件上传失败, name因用file"})
@@ -54,8 +56,9 @@ func FileUpload(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
-		"msg":      "上传成功",
-		"fileName": fileName,
+		"msg":  "上传成功",
+		"key":  key,
+		"fileName": file.Filename,
 	})
 }
 
