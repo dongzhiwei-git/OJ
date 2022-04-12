@@ -44,7 +44,7 @@ func TestAddProblem(t *testing.T) {
 
 	problem := new(services.Problem)
 	data := []string{
-		"1", "2", "2", "3", "2","2","2","2","2","2",
+		"2", "2", "2", "3", "2", "2", "2", "2", "2", "2",
 	}
 	info := problem.AddProblem(data, time.Now())
 	fmt.Println(info)

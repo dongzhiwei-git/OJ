@@ -2,11 +2,10 @@ package dao
 
 import (
 	"fmt"
+	"gorm.io/driver/mysql"
+	_"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 	"inherited/internal/conf"
-	"inherited/internal/models"
-
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
 )
 
 var Orm *gorm.DB
@@ -16,10 +15,10 @@ func Init() (err error) {
 
 	conn := conf.Get().Mysql
 	//DB, err := gorm.Open("mysql", "root:beego@tcp(121.36.216.191:3306)/inherited?charset=utf8mb4&parseTime=True&loc=Local")
-	Orm, err = gorm.Open("mysql", conn.Master.Dsn)
+	Orm, err = gorm.Open( mysql.Open(conn.Master.Dsn), &gorm.Config{})
 	// 开启打印SQL语句
-	Orm.AutoMigrate(models.Problem{})
-	Orm.AutoMigrate(models.SysUser{})
+	//Orm.AutoMigrate(models.Problem{})
+	//Orm.AutoMigrate(models.SysUser{})
 	//SysUser := new(services.SysUser)
 	//SysUser.CreateSysUser("root", "234")
 
@@ -28,7 +27,7 @@ func Init() (err error) {
 		return
 	}
 
-	return Orm.DB().Ping()
+	return err
 
 	// 初始化oss3
 

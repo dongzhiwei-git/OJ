@@ -27,6 +27,7 @@ func stringToInt32(str string) int32 {
 // AddProblem 添加问题
 func (pr *Problem) AddProblem(data []string, inDate time.Time) int64 {
 	var pro models.Problem
+	//proo :=  new(models.Problem)
 	pro.Title = data[0]
 	pro.TimeLimit = stringToInt32(data[1])
 	pro.MemoryLimit = stringToInt32(data[2])
@@ -40,11 +41,18 @@ func (pr *Problem) AddProblem(data []string, inDate time.Time) int64 {
 	pro.InDate = inDate
 	pro.Defunct = "N"
 
-	err := dao.Orm.Create(&pro)
+	err := dao.Orm.Debug().Create(&pro).Error
 	if err != nil {
 		log.Println("[service.AddProblem]", err)
-		return pro.ProblemId
+		return 0
 
 	}
-	return pro.ProblemId
+
+	err = dao.Orm.Debug().Last(&pro).Error
+	if err != nil {
+		log.Println("[service.AddProblem]", err)
+		return 0
+	}
+
+	return pro.ProblemID
 }
