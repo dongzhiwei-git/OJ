@@ -25,19 +25,8 @@ func stringToInt32(str string) int32 {
 }
 
 // AddProblem 添加问题
-func (pr *Problem) AddProblem(data []string, inDate time.Time) int64 {
+func (pr *Problem) AddProblem(data models.Problem, inDate time.Time) int64 {
 	var pro models.Problem
-	//proo :=  new(models.Problem)
-	pro.Title = data[0]
-	pro.TimeLimit = stringToInt32(data[1])
-	pro.MemoryLimit = stringToInt32(data[2])
-	pro.Description = data[3]
-	pro.Input = data[4]
-	pro.Output = data[5]
-	pro.SampleInput = data[6]
-	pro.SampleOutput = data[7]
-	pro.Hint = data[8]
-	pro.Spj = data[9]
 	pro.InDate = inDate
 	pro.Defunct = "N"
 

@@ -65,10 +65,14 @@ func FileUpload(ctx *gin.Context) {
 
 func AddProblem(ctx *gin.Context) {
 	data := models.Problem{}
+	problem := new(services.Problem)
 	err := ctx.ShouldBindJSON(&data)
 	if err != nil {
 		log.Println(err)
 		return
 	}
+
+	problem.AddProblem(data)
+
 
 }

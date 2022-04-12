@@ -5,7 +5,7 @@ import (
 )
 
 type Problem struct {
-	ProblemID    int64       `gorm:"problem_id"    json:"problem_id"`
+	ProblemID    int64     `gorm:"problem_id"    json:"problem_id"`
 	Title        string    `gorm:"title"         json:"title"         binding:"required"`
 	Description  string    `gorm:"description"   json:"description"   binding:"required"`
 	Input        string    `gorm:"input"         json:"input"         binding:"required"`
