@@ -57,8 +57,8 @@ func FileUpload(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
-		"msg":  "上传成功",
-		"key":  key,
+		"msg":      "上传成功",
+		"key":      key,
 		"fileName": file.Filename,
 	})
 }
@@ -68,6 +68,9 @@ func AddProblem(ctx *gin.Context) {
 	//problem := new(services.Problem)
 	err := ctx.ShouldBindJSON(&data)
 	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"msg": err,
+		})
 		log.Println(err)
 		return
 	}
@@ -78,7 +81,5 @@ func AddProblem(ctx *gin.Context) {
 
 	//problemID := problem.AddProblem(data)
 	//if problemID == 0
-
-
 
 }
