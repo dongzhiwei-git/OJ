@@ -3,10 +3,10 @@ package main
 import (
 	fmt "fmt"
 	"inherited/internal"
+	"inherited/internal/models"
 	"inherited/internal/services"
 	"log"
 	"testing"
-	"time"
 )
 
 func TestCreateSysUser(t *testing.T) {
@@ -43,10 +43,18 @@ func TestAddProblem(t *testing.T) {
 	}
 
 	problem := new(services.Problem)
-	data := []string{
-		"2", "2", "2", "3", "2", "2", "2", "2", "2", "2",
-	}
-	info := problem.AddProblem(data, time.Now())
+	data := models.Problem{}
+	info := problem.AddProblem(data)
 	fmt.Println(info)
 
+}
+
+func TestDelProblemById(t *testing.T){
+	if err := internal.Init(); err != nil {
+		log.Println("Init failed." + err.Error())
+		return
+	}
+
+	pro := new(services.Problem)
+	pro.DelProblemById(3)
 }

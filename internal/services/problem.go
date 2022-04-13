@@ -9,6 +9,23 @@ import (
 )
 
 type Problem struct {
+	ProblemID    int32     `gorm:"problem_id"    json:"problem_id"`
+	Title        string    `gorm:"title"         json:"title"         binding:"required"`
+	Description  string    `gorm:"description"   json:"description"   binding:"required"`
+	Input        string    `gorm:"input"         json:"input"         binding:"required"`
+	Output       string    `gorm:"output"        json:"output"        binding:"required"`
+	SampleInput  string    `gorm:"sample_input"  json:"sampleInput"   binding:"required"`
+	SampleOutput string    `gorm:"sample_output" json:"sampleOutput"  binding:"required"`
+	Spj          string    `gorm:"spj"           json:"spj"           binding:"required"`
+	Hint         string    `gorm:"hint"          json:"hint"`
+	Source       string    `gorm:"source"        json:"source"`
+	InDate       time.Time `gorm:"in_date"       json:"inDate"`
+	TimeLimit    int32     `gorm:"time_limit"    json:"time"          binding:"required"`
+	MemoryLimit  int32     `gorm:"memory_limit"  json:"memory"        binding:"required"`
+	Accepted     int32     `gorm:"accepted"      json:"accepted"`
+	Submit       int32     `gorm:"submit"        json:"submit"`
+	Solved       int32     `gorm:"solved"        json:"solved"`
+	FileName     string    `json:"fileName"     binding:"required"`
 }
 
 //QueryAllProblem 查询所有题目
@@ -25,7 +42,7 @@ func stringToInt32(str string) int32 {
 }
 
 // AddProblem 添加问题
-func (pr *Problem) AddProblem(data models.Problem) int64 {
+func (pr *Problem) AddProblem(data models.Problem) int32 {
 	inDate := time.Now()
 	data.InDate = inDate
 	data.Defunct = "N"
@@ -44,4 +61,11 @@ func (pr *Problem) AddProblem(data models.Problem) int64 {
 	}
 
 	return data.ProblemID
+}
+
+// DelProblemById 通过problem删除一行
+func (pr *Problem) DelProblemById(id int32) error {
+	err := dao.Orm.Debug().Where("problem_id = ?", id).Delete(&models.Problem{}).Error
+
+	return err
 }

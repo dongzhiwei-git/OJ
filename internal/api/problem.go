@@ -3,11 +3,14 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	"inherited/internal/models"
 	"inherited/internal/pkg"
 	"inherited/internal/services"
 	"log"
 	"net/http"
+	"os"
+	"strconv"
 	"time"
 )
 
@@ -65,30 +68,74 @@ func FileUpload(ctx *gin.Context) {
 
 func AddProblem(ctx *gin.Context) {
 	data := models.Problem{}
+	data2 := services.Problem{}
 	problem := new(services.Problem)
-	err := ctx.ShouldBindJSON(&data)
-
+	err := ctx.ShouldBindBodyWith(&data, binding.JSON)
 	if err != nil {
 		erro := fmt.Sprintf("%s", err)
 		ctx.JSON(http.StatusOK, gin.H{
 			"msg": erro,
 		})
 
-		log.Println("[api.AddProblem]", err)
+		log.Println("[api.AddProblem1]", err)
+		return
+	}
+	err = ctx.ShouldBindBodyWith(&data2, binding.JSON)
+	if err != nil {
+		erro := fmt.Sprintf("%s", err)
+		ctx.JSON(http.StatusOK, gin.H{
+			"msg": erro,
+		})
+
+		log.Println("[api.AddProblem2]", err)
+		return
+	}
+
+	// TODO 开启事务，失败回滚
+	problemID := problem.AddProblem(data)
+	fmt.Printf("problem_ID:", problemID)
+	if problemID == 0 {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"msg": "系统错误",
+		})
+
+		return
+	}
+
+	fileName := data2.FileName
+	targetPath := strconv.Itoa(int(problemID))
+	testZipDir := OJ_ZIP_TEMP_DATA + "/" + fileName
+	targetDir := OJ_DATA + "/" + targetPath + "/"
+	err = pkg.UnZip(testZipDir, targetDir)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"msg": "系统错误",
+		})
+
+		err = problem.DelProblemById(problemID)
+		if err != nil {
+			log.Println("problem delete err")
+		}
+		log.Println("[api.AddProblem2]", err)
+		return
+	}
+
+	err = os.Remove(testZipDir)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"msg": "系统错误",
+		})
+
+		err = problem.DelProblemById(problemID)
+		if err != nil {
+			log.Println("dir delete err")
+		}
+		log.Println("[api.AddProblem2]", err)
 		return
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg": "添加题目成功",
 	})
-	// TODO 开启事务，失败回滚
-	problemID := problem.AddProblem(data)
-	if problemID == 0 {
-		ctx.JSON(http.StatusInternalServerError, gin.H{
-			"msg": "系统错误",
-		})
-	}
-
-	//ctx.Co
 
 }

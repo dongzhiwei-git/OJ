@@ -6,7 +6,7 @@ import (
 	"encoding/hex"
 	"io"
 	"os"
-	"path/filepath"
+	"strings"
 )
 
 func MD5(v string) string {
@@ -16,41 +16,54 @@ func MD5(v string) string {
 	return hex.EncodeToString(m.Sum(nil))
 }
 
-
 // 解压zip
-func UnZip(archive, target string) error {
-	reader, err := zip.OpenReader(archive)
+func UnZip(zipFile, dest string) error {
+	reader, err := zip.OpenReader(zipFile)
 	if err != nil {
 		return err
 	}
-
-	if err := os.MkdirAll(target, 0755); err != nil {
-		return err
-	}
-
+	defer reader.Close()
 	for _, file := range reader.File {
-		path := filepath.Join(target, file.Name)
-		if file.FileInfo().IsDir() {
-			os.MkdirAll(path, file.Mode())
-			continue
-		}
-
-		fileReader, err := file.Open()
+		rc, err := file.Open()
 		if err != nil {
 			return err
 		}
-		defer fileReader.Close()
-
-		targetFile, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, file.Mode())
+		defer rc.Close()
+		filename := dest + file.Name
+		err = os.MkdirAll(getDir(filename), 0755)
 		if err != nil {
 			return err
 		}
-		defer targetFile.Close()
-
-		if _, err := io.Copy(targetFile, fileReader); err != nil {
+		w, err := os.Create(filename)
+		if err != nil {
 			return err
 		}
+		defer w.Close()
+		_, err = io.Copy(w, rc)
+		if err != nil {
+			return err
+		}
+		w.Close()
+		rc.Close()
+	}
+	return nil
+}
+
+func getDir(path string) string {
+	return subString(path, 0, strings.LastIndex(path, "/"))
+}
+
+func subString(str string, start, end int) string {
+	rs := []rune(str)
+	length := len(rs)
+
+	if start < 0 || start > length {
+		panic("start is wrong")
 	}
 
-	return nil
+	if end < start || end > length {
+		panic("end is wrong")
+	}
+
+	return string(rs[start:end])
 }
