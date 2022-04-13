@@ -65,21 +65,30 @@ func FileUpload(ctx *gin.Context) {
 
 func AddProblem(ctx *gin.Context) {
 	data := models.Problem{}
-	//problem := new(services.Problem)
+	problem := new(services.Problem)
 	err := ctx.ShouldBindJSON(&data)
+
 	if err != nil {
+		erro := fmt.Sprintf("%s", err)
 		ctx.JSON(http.StatusOK, gin.H{
-			"msg": err,
+			"msg": erro,
 		})
-		log.Println(err)
+
+		log.Println("[api.AddProblem]", err)
 		return
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg": "添加题目成功",
 	})
+	// TODO 开启事务，失败回滚
+	problemID := problem.AddProblem(data)
+	if problemID == 0 {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"msg": "系统错误",
+		})
+	}
 
-	//problemID := problem.AddProblem(data)
-	//if problemID == 0
+	//ctx.Co
 
 }

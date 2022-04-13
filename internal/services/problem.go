@@ -26,23 +26,22 @@ func stringToInt32(str string) int32 {
 
 // AddProblem 添加问题
 func (pr *Problem) AddProblem(data models.Problem) int64 {
-	var pro models.Problem
-	var inDate time.Time
-	pro.InDate = inDate
-	pro.Defunct = "N"
+	inDate := time.Now()
+	data.InDate = inDate
+	data.Defunct = "N"
 
-	err := dao.Orm.Debug().Create(&pro).Error
+	err := dao.Orm.Debug().Create(&data).Error
 	if err != nil {
 		log.Println("[service.AddProblem]", err)
 		return 0
 
 	}
 
-	err = dao.Orm.Debug().Last(&pro).Error
+	err = dao.Orm.Debug().Last(&data).Error
 	if err != nil {
 		log.Println("[service.AddProblem]", err)
 		return 0
 	}
 
-	return pro.ProblemID
+	return data.ProblemID
 }
