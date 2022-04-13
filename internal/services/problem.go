@@ -25,8 +25,9 @@ func stringToInt32(str string) int32 {
 }
 
 // AddProblem 添加问题
-func (pr *Problem) AddProblem(data models.Problem, inDate time.Time) int64 {
+func (pr *Problem) AddProblem(data models.Problem) int64 {
 	var pro models.Problem
+	var inDate time.Time
 	pro.InDate = inDate
 	pro.Defunct = "N"
 
