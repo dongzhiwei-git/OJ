@@ -7,7 +7,7 @@ import (
 type Problem struct {
 	ProblemID    int64     `gorm:"problem_id"    json:"problem_id"`
 	Title        string    `gorm:"title"         json:"title"         binding:"required"`
-	Description  string    `gorm:"description"   json:"desc"          binding:"required"`
+	Description  string    `gorm:"description"   json:"description"          binding:"required"`
 	Input        string    `gorm:"input"         json:"input"         binding:"required"`
 	Output       string    `gorm:"output"        json:"output"        binding:"required"`
 	SampleInput  string    `gorm:"sample_input"  json:"sampleInput"   binding:"required"`
@@ -22,6 +22,7 @@ type Problem struct {
 	Accepted     int32     `gorm:"accepted"      json:"accepted"`
 	Submit       int32     `gorm:"submit"        json:"submit"`
 	Solved       int32     `gorm:"solved"        json:"solved"`
+	FileName     string    `json:"fileName"      binding:"required"`
 }
 
 func (Problem) TableName() string {
