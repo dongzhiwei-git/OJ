@@ -3,6 +3,7 @@ package internal
 import (
 	"inherited/internal/conf"
 	"inherited/internal/dao"
+	log2 "inherited/internal/log"
 	"log"
 
 	"github.com/pkg/errors"
@@ -20,6 +21,9 @@ func Init() error {
 		log.Println("初始化dao失败")
 		return errors.WithStack(err)
 	}
+
+	// 初始化logrus
+	log2.Init()
 
 	return nil
 }

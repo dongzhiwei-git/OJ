@@ -157,7 +157,7 @@ func Submit(ctx *gin.Context) {
 		}
 	}
 
-	if param["problemID"] == 0 {
+	if param["problemID"].(int) == 0 {
 		if err != nil {
 			ctx.JSON(http.StatusOK, gin.H{"msg": "problemID不能为0"})
 			return
