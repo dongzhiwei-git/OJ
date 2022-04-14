@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"github.com/sirupsen/logrus"
 	"inherited/internal/dhttp"
 	"inherited/internal/models"
 	"inherited/internal/pkg"
@@ -145,33 +146,65 @@ func AddProblem(ctx *gin.Context) {
 // Submit 提交源代码
 func Submit(ctx *gin.Context) {
 	param := make(map[string]interface{})
-	err := ctx.BindJSON(&param)
+	err := ctx.ShouldBindJSON(&param)
 	if err != nil {
+		fmt.Printf("erer")
 		ctx.JSON(http.StatusOK, gin.H{"err": err})
 		return
 	}
+	source, _ := param["source"].(string)
+	if len(source) == 0 {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": dhttp.CheckFailure,
+			"msg":  "代码不能为空",
+		})
+		return
 
-	if len(param["source"].(string)) == 0 {
+	}
+
+	problemID, _ := param["problemID"].(float64)
+	proID := int(problemID)
+	if proID == 0 {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": dhttp.CheckFailure,
+			"msg":  "problemID不能为0",
+		})
+		logrus.Trace("problemID不能为空")
+		return
+
+	}
+	userID, _ := param["userID"].(float64)
+	useID := int(userID)
+	if useID == 0 {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": dhttp.CheckFailure,
+			"msg":  "userID不能为0",
+		})
+		return
+	}
+
+	contestID, _ := param["contestID"].(float64)
+	conID := int32(contestID)
+	if conID != 0 {
+		contest := new(services.Contest)
+		conInfo, err := contest.QueryContestByConId(conID)
 		if err != nil {
 			ctx.JSON(http.StatusOK, gin.H{
-				"code": dhttp.CheckFailure,
-				"msg":  "代码不能为空",
+				"code": dhttp.DatabaseRError,
 			})
+			logrus.Trace(err)
+			return
+		}
+		t := time.Now().Sub(conInfo.EndTime).Seconds()
+		if t > 0 {
+			ctx.JSON(http.StatusOK, gin.H{
+				"code": dhttp.OK,
+				"msg":  "比赛已经结束",
+			})
+
 			return
 		}
 	}
-
-	if param["problemID"].(int) == 0 {
-		if err != nil {
-			ctx.JSON(http.StatusOK, gin.H{
-				"code": dhttp.CheckFailure,
-				"msg":  "problemID不能为0",
-			})
-			return
-		}
-	}
-
-
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg": "成功",
