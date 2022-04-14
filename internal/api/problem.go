@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"inherited/internal/dhttp"
 	"inherited/internal/models"
 	"inherited/internal/pkg"
 	"inherited/internal/services"
@@ -152,17 +153,25 @@ func Submit(ctx *gin.Context) {
 
 	if len(param["source"].(string)) == 0 {
 		if err != nil {
-			ctx.JSON(http.StatusOK, gin.H{"msg": "代码不能为空"})
+			ctx.JSON(http.StatusOK, gin.H{
+				"code": dhttp.CheckFailure,
+				"msg":  "代码不能为空",
+			})
 			return
 		}
 	}
 
 	if param["problemID"].(int) == 0 {
 		if err != nil {
-			ctx.JSON(http.StatusOK, gin.H{"msg": "problemID不能为0"})
+			ctx.JSON(http.StatusOK, gin.H{
+				"code": dhttp.CheckFailure,
+				"msg":  "problemID不能为0",
+			})
 			return
 		}
 	}
+
+
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg": "成功",
