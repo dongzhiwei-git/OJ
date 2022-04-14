@@ -66,6 +66,7 @@ func FileUpload(ctx *gin.Context) {
 	})
 }
 
+// AddProblem 添加问题
 func AddProblem(ctx *gin.Context) {
 	data := models.Problem{}
 	data2 := services.Problem{}
@@ -138,4 +139,32 @@ func AddProblem(ctx *gin.Context) {
 		"msg": "添加题目成功",
 	})
 
+}
+
+// Submit 提交源代码
+func Submit(ctx *gin.Context) {
+	param := make(map[string]interface{})
+	err := ctx.BindJSON(&param)
+	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{"err": err})
+		return
+	}
+
+	if len(param["source"].(string)) == 0 {
+		if err != nil {
+			ctx.JSON(http.StatusOK, gin.H{"msg": "代码不能为空"})
+			return
+		}
+	}
+
+	if param["problemID"] == 0 {
+		if err != nil {
+			ctx.JSON(http.StatusOK, gin.H{"msg": "problemID不能为0"})
+			return
+		}
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"msg": "成功",
+	})
 }

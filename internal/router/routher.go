@@ -23,10 +23,15 @@ func InitRouter() {
 
 	var admin = r.Group("/admin")
 	{
+		//上传测试数据
 		admin.POST("/upload", api.FileUpload)
 		admin.POST("/reg", api.CreateAdminUser)
+		//添加问题
 		admin.POST("/add_problem", api.AddProblem)
 	}
+
+	// 提交代码
+	r.POST("/submit", api.Submit)
 
 	// setup listen
 	err := r.Run(":8000")
