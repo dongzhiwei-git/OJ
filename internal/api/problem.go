@@ -163,7 +163,7 @@ func Submit(ctx *gin.Context) {
 	}
 
 	problemID, _ := param["problemID"].(float64)
-	proID := int(problemID)
+	proID := int32(problemID)
 	if proID == 0 {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": dhttp.CheckFailure,
@@ -174,7 +174,7 @@ func Submit(ctx *gin.Context) {
 
 	}
 	userID, _ := param["userID"].(float64)
-	useID := int(userID)
+	useID := int32(userID)
 	if useID == 0 {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code": dhttp.CheckFailure,
@@ -185,6 +185,8 @@ func Submit(ctx *gin.Context) {
 
 	contestID, _ := param["contestID"].(float64)
 	conID := int32(contestID)
+
+	// 判断是不是比赛， 0不是比赛
 	if conID != 0 {
 		contest := new(services.Contest)
 		conInfo, err := contest.QueryContestByConId(conID)
@@ -206,6 +208,23 @@ func Submit(ctx *gin.Context) {
 		}
 	}
 
+	lan, _ := param["language"].(float64)
+	lang := int(lan)
+	sol := new(services.Solution)
+	codeLen := len(source)
+	reqIP := ctx.ClientIP()
+	if reqIP == "::1" {
+		reqIP = "127.0.0.1"
+	}
+	_, err = sol.AddSolution(proID, source, useID, codeLen, lang, conID, reqIP)
+	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": dhttp.DatabaseCError,
+			"msg":  "数据库错误",
+		})
+		logrus.Trace(err)
+		return
+	}
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg": "成功",
 	})

@@ -4,7 +4,6 @@ import (
 	"inherited/internal/dao"
 	"inherited/internal/models"
 	"log"
-	"strconv"
 	"time"
 )
 
@@ -34,11 +33,6 @@ func (pr *Problem) QueryAllProblem() (*[]*models.Problem, error) {
 	err := dao.Orm.Find(problem).Error
 
 	return problem, err
-}
-
-func stringToInt32(str string) int32 {
-	d, _ := strconv.Atoi(str)
-	return int32(d)
 }
 
 // AddProblem 添加问题

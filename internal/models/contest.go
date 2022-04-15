@@ -14,3 +14,8 @@ type Contest struct {
 	Password    string    `json:"type(char);size(16);"`
 	UserId      int32     `json:"null"`
 }
+
+func (Contest) TableName() string{
+
+	return "contest"
+}

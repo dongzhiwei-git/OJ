@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"io"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -69,3 +70,14 @@ func subString(str string, start, end int) string {
 
 	return string(rs[start:end])
 }
+
+
+func StringToInt32(str string) int32 {
+	d, _ := strconv.Atoi(str)
+	return int32(d)
+}
+
+
+
+
+
