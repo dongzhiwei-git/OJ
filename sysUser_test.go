@@ -4,6 +4,7 @@ import (
 	fmt "fmt"
 	"inherited/internal"
 	"inherited/internal/models"
+	"inherited/internal/pkg"
 	"inherited/internal/services"
 	"log"
 	"testing"
@@ -83,4 +84,18 @@ func TestQueryContestByConId(t *testing.T) {
 		fmt.Println(err)
 	}
 	fmt.Println(conID)
+}
+
+func TestStatus(t *testing.T){
+	if err := internal.Init(); err != nil {
+		log.Println("Init failed." + err.Error())
+		return
+	}
+	solu := new(services.Solution)
+	start := pkg.StartNum(1, 10)
+	soluInfos, count, err := solu.GetStatusPage(start, 10)
+	if err != nil{
+		fmt.Println(err)
+	}
+	fmt.Println(soluInfos,"\n", count)
 }

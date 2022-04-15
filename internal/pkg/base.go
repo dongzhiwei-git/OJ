@@ -77,6 +77,9 @@ func StringToInt32(str string) int32 {
 	return int32(d)
 }
 
+func StartNum(pageNum, pageSize int) int {
+	return (pageNum - 1) * pageSize
+}
 
 
 

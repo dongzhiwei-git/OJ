@@ -4,6 +4,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"inherited/internal/dao"
 	"inherited/internal/models"
+	"inherited/internal/pkg"
 	"time"
 )
 
@@ -53,4 +54,19 @@ func (s *Solution) AddSolution(pid int32, source string, uid int32, codeLen int,
 		return int64(sid), err
 	}
 
+}
+
+// GetStatusPage 分页获取判题信息
+func (s Solution) GetStatusPage(PageNum, pageSize int) (solInfo []models.Solution, tot int64, err error) {
+	startNum := pkg.StartNum(PageNum, pageSize)
+	err = dao.Orm.Debug().Limit(pageSize).Offset(startNum).Find(&solInfo).Error
+	if err != nil {
+		logrus.Info("[Err]")
+	}
+	err = dao.Orm.Debug().Model(&models.Solution{}).Count(&tot).Error
+	if err != nil {
+		logrus.Info("[Err]")
+	}
+
+	return solInfo, tot, err
 }

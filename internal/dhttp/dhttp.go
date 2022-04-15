@@ -3,6 +3,7 @@ package dhttp
 const (
 	OK             = "00000"  //一切OK
 	CheckFailure   = "A10001" //参数校验失败
+	ParaInvaild    = "A10002"
 	CreateDirError = "B10001"
 	DeleteDirError = "B10002" //删除目录错误
 	//  CRUD(Create, Read, Update and Delete)
