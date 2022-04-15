@@ -32,6 +32,7 @@ func InitRouter() {
 
 	// 提交代码
 	r.POST("/submit", api.Submit)
+	r.GET("/status", api.Status)
 
 	// setup listen
 	err := r.Run(":8000")

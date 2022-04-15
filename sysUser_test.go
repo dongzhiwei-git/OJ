@@ -49,7 +49,7 @@ func TestAddProblem(t *testing.T) {
 
 }
 
-func TestDelProblemById(t *testing.T){
+func TestDelProblemById(t *testing.T) {
 	if err := internal.Init(); err != nil {
 		log.Println("Init failed." + err.Error())
 		return
@@ -59,27 +59,27 @@ func TestDelProblemById(t *testing.T){
 	pro.DelProblemById(3)
 }
 
-func TestAddSolution(t *testing.T){
+func TestAddSolution(t *testing.T) {
 	if err := internal.Init(); err != nil {
 		log.Println("Init failed." + err.Error())
 		return
 	}
 	sol := new(services.Solution)
-	_, err := sol.AddSolution(34, "!23 ",  1,1 ,34,1,"3")
+	_, err := sol.AddSolution(34, "!23 ", 1, 1, 34, 1, "3")
 	if err != nil {
 		fmt.Println()
 	}
 
 }
 
-func TestQueryContestByConId(t *testing.T){
+func TestQueryContestByConId(t *testing.T) {
 	if err := internal.Init(); err != nil {
 		log.Println("Init failed." + err.Error())
 		return
 	}
 	con := new(services.Contest)
 	conID, err := con.QueryContestByConId(1)
-	if err != nil{
+	if err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println(conID)
