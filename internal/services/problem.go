@@ -3,6 +3,7 @@ package services
 import (
 	"inherited/internal/dao"
 	"inherited/internal/models"
+	"inherited/internal/pkg"
 	"log"
 	"time"
 )
@@ -33,6 +34,14 @@ func (pr *Problem) QueryAllProblem() (*[]*models.Problem, error) {
 	err := dao.Orm.Find(problem).Error
 
 	return problem, err
+}
+
+// QueryProblemByPageNum 通过页码查询题目
+func (pr *Problem) QueryProblemByPageNum(num, size int) (	proInfo []*models.Problem, count int64, err error) {
+	start := pkg.StartNum(num, size)
+	err = dao.Orm.Limit(size).Offset(start).Find(&proInfo).Error
+	err = dao.Orm.Model(&models.Problem{}).Count(&count).Error
+	return proInfo, count, err
 }
 
 // AddProblem 添加问题

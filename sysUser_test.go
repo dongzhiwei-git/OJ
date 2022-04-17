@@ -2,9 +2,9 @@ package main
 
 import (
 	fmt "fmt"
+	"github.com/sirupsen/logrus"
 	"inherited/internal"
 	"inherited/internal/models"
-	"inherited/internal/pkg"
 	"inherited/internal/services"
 	"log"
 	"testing"
@@ -86,16 +86,30 @@ func TestQueryContestByConId(t *testing.T) {
 	fmt.Println(conID)
 }
 
-func TestStatus(t *testing.T){
+func TestStatus(t *testing.T) {
 	if err := internal.Init(); err != nil {
 		log.Println("Init failed." + err.Error())
 		return
 	}
 	solu := new(services.Solution)
-	start := pkg.StartNum(1, 10)
-	soluInfos, count, err := solu.GetStatusPage(start, 10)
-	if err != nil{
+	soluInfos, count, err := solu.GetStatusPage(3, 2)
+	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(soluInfos,"\n", count)
+	fmt.Println(soluInfos, "\n", count)
+}
+
+func TestQueryProblemByPageNum(t *testing.T) {
+	if err := internal.Init(); err != nil {
+		log.Println("Init failed." + err.Error())
+		return
+	}
+	pro := new(services.Problem)
+	proInfo, count, err := pro.QueryProblemByPageNum(3, 2)
+	if err != nil {
+		fmt.Println(err)
+		logrus.Trace(err)
+	}
+	fmt.Println(proInfo, count)
+
 }
