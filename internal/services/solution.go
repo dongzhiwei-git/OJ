@@ -30,16 +30,16 @@ func (s *Solution) AddSolution(pid int32, source string, uid int32, codeLen int,
 
 	//id, err := DB.Insert(&Solu)
 	tx := dao.Orm.Begin()
-	err := dao.Orm.Create(&Solu).Error
+	err := tx.Create(&Solu).Error
 	//获取插入记录的Id
 	var sid int
-	err = dao.Orm.Raw("select LAST_INSERT_ID() as id").Pluck("id", &sid).Error
+	err = tx.Raw("select LAST_INSERT_ID() as id").Pluck("id", &sid).Error
 	SoluCode.SolutionId = int32(sid)
 	SoluCode.Source = source
 
-	err = dao.Orm.Create(&SoluCode).Error
+	err = tx.Create(&SoluCode).Error
 	var scid int
-	err = dao.Orm.Raw("select LAST_INSERT_ID() as id").Pluck("id", &scid).Error
+	err = tx.Raw("select LAST_INSERT_ID() as id").Pluck("id", &scid).Error
 
 	if sid == 0 || scid == 0 || err != nil {
 		err = tx.Rollback().Error
