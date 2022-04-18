@@ -38,8 +38,9 @@ func QueryAllProblem(ctx *gin.Context) {
 	return
 
 }
+
 // QueryProblemByPageNum 通过页码查询题目
-func QueryProblemByPageNum(ctx *gin.Context){
+func QueryProblemByPageNum(ctx *gin.Context) {
 	pageNum, _ := strconv.Atoi(ctx.Query("pageNum"))
 	pageSize, _ := strconv.Atoi(ctx.Query("pageSize"))
 	if pageSize == 0 || pageNum == 0 {
@@ -68,7 +69,22 @@ func QueryProblemByPageNum(ctx *gin.Context){
 
 }
 
+// QueryProblemByProblemID 通过ID获取某一个题目
+func QueryProblemByProblemID(ctx *gin.Context) {
+	problemID, _ := strconv.Atoi(ctx.Query("problemID"))
+	if problemID <= 0 {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": dhttp.ParaInvaild,
+			"msg":  "参数无效",
+		})
+		logrus.Info("[参数无效]")
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"msg": "successful",
+	})
 
+}
 
 // FileUpload 上传测试数据zip
 func FileUpload(ctx *gin.Context) {
