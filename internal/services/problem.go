@@ -72,3 +72,9 @@ func (pr *Problem) DelProblemById(id int32) error {
 
 	return err
 }
+// 	QueryProblemByProblemID 通过ID获取某一个题目
+func (pr *Problem)QueryProblemByProblemID( id int) (pro models.Problem, err error){
+	proID := int32(id)
+	err = dao.Orm.Debug().Where("problem_id = ?", proID).Find(&pro).Error
+	return pro, err
+}

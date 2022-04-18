@@ -113,3 +113,15 @@ func TestQueryProblemByPageNum(t *testing.T) {
 	fmt.Println(proInfo, count)
 
 }
+
+func TestQueryProblemByProblemID(t *testing.T){
+	pro := new(services.Problem)
+	proInfo, err := pro.QueryProblemByProblemID(27)
+	if err != nil {
+
+		logrus.Info("[数据库查询失败]")
+
+		return
+	}
+	fmt.Println(proInfo)
+}
