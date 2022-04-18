@@ -1,21 +1,26 @@
 package main
 
 import (
-	fmt "fmt"
+	"fmt"
 	"github.com/sirupsen/logrus"
 	"inherited/internal"
 	"inherited/internal/models"
 	"inherited/internal/services"
 	"log"
+	"os"
 	"testing"
 )
 
-func TestCreateSysUser(t *testing.T) {
-
+func TestMain(m *testing.M) {
 	if err := internal.Init(); err != nil {
 		log.Println("Init failed." + err.Error())
 		return
 	}
+	os.Exit(m.Run())
+
+}
+
+func TestCreateSysUser(t *testing.T) {
 
 	SysUser := new(services.SysUser)
 	SysUser.CreateSysUser("rot", "2355")
@@ -24,11 +29,6 @@ func TestCreateSysUser(t *testing.T) {
 }
 
 func TestQueryAllProblem(t *testing.T) {
-
-	if err := internal.Init(); err != nil {
-		log.Println("Init failed." + err.Error())
-		return
-	}
 
 	problem := new(services.Problem)
 	info, _ := problem.QueryAllProblem()

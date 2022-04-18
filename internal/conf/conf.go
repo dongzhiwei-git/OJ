@@ -27,7 +27,7 @@ func Get() Conf {
 }
 
 func Init() error {
-	config, err := ioutil.ReadFile("./conf/web.yaml")
+	config, err := ioutil.ReadFile("conf/web.yaml")
 	if err != nil {
 		log.Println("yaml parse error", err)
 	}
