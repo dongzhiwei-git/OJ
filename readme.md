@@ -1,3 +1,4 @@
-### go 脚手架
-1. 包装好基本的目录结构
-2. 写好数据库连接
+### 开发环境搭建
+第一步：git init
+第二步：git checkout -b git@github.com:dongzhiwei-git/OJ.git xxx/xxx
+
