@@ -59,7 +59,7 @@ func (s *Solution) AddSolution(pid int32, source string, uid int32, codeLen int,
 // GetStatusPage 分页获取判题信息
 func (s Solution) GetStatusPage(PageNum, pageSize int) (solInfo []models.Solution, tot int64, err error) {
 	startNum := pkg.StartNum(PageNum, pageSize)
-	err = dao.Orm.Debug().Limit(pageSize).Offset(startNum).Find(&solInfo).Error
+	err = dao.Orm.Order("judgetime desc").Limit(pageSize).Offset(startNum).Find(&solInfo).Error
 	if err != nil {
 		logrus.Info("[Err]")
 	}
