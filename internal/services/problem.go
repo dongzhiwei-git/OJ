@@ -39,7 +39,7 @@ func (pr *Problem) QueryAllProblem() (*[]*models.Problem, error) {
 // QueryProblemByPageNum 通过页码查询题目
 func (pr *Problem) QueryProblemByPageNum(num, size int) (	proInfo []*models.Problem, count int64, err error) {
 	start := pkg.StartNum(num, size)
-	err = dao.Orm.Limit(size).Offset(start).Find(&proInfo).Error
+	err = dao.Orm.Order("problem_id desc").Limit(size).Offset(start).Find(&proInfo).Error
 	err = dao.Orm.Model(&models.Problem{}).Count(&count).Error
 	return proInfo, count, err
 }
