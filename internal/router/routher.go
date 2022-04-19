@@ -31,6 +31,7 @@ func InitRouter() {
 		admin.POST("/reg", api.CreateAdminUser)
 		//添加问题
 		admin.POST("/add_problem", api.AddProblem)
+		admin.POST("/add_contest", api.AddContest)
 	}
 
 	// 提交代码
