@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-var JUDGERES = map[int]string{
+var JUDGESTATUS = map[int16]string{
 	0:  "判题中",
 	1:  "等待重判",
 	2:  "编译中",

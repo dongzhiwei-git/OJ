@@ -9,6 +9,28 @@ import (
 )
 
 type Solution struct {
+	SolutionId  int32
+	ProblemId   int32
+	UserId      int32
+	Time        int32
+	Memory      int32
+	InDate      time.Time
+	Result      int16
+	Language    uint
+	Ip          string
+	ContestId   int32
+	Valid       int8
+	Num         int8
+	CodeLength  int32
+	Judgetime   *time.Time
+	PassRate    float64
+	LintError   uint
+	JudgeStatus string
+	Judger      string
+}
+
+func (Solution) TableName() string {
+	return "solution"
 }
 
 // AddSolution 提交代码
@@ -57,7 +79,7 @@ func (s *Solution) AddSolution(pid int32, source string, uid int32, codeLen int,
 }
 
 // GetStatusPage 分页获取判题信息
-func (s Solution) GetStatusPage(PageNum, pageSize int) (solInfo []models.Solution, tot int64, err error) {
+func (s Solution) GetStatusPage(PageNum, pageSize int) (solInfo []Solution, tot int64, err error) {
 	startNum := pkg.StartNum(PageNum, pageSize)
 	err = dao.Orm.Order("judgetime desc").Limit(pageSize).Offset(startNum).Find(&solInfo).Error
 	if err != nil {
@@ -66,6 +88,10 @@ func (s Solution) GetStatusPage(PageNum, pageSize int) (solInfo []models.Solutio
 	err = dao.Orm.Debug().Model(&models.Solution{}).Count(&tot).Error
 	if err != nil {
 		logrus.Info("[Err]")
+	}
+	for i := range solInfo {
+		solInfo[i].JudgeStatus = models.JUDGESTATUS[solInfo[i].Result]
+
 	}
 
 	return solInfo, tot, err

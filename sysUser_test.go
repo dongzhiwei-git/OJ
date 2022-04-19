@@ -87,10 +87,6 @@ func TestQueryContestByConId(t *testing.T) {
 }
 
 func TestStatus(t *testing.T) {
-	if err := internal.Init(); err != nil {
-		log.Println("Init failed." + err.Error())
-		return
-	}
 	solu := new(services.Solution)
 	soluInfos, count, err := solu.GetStatusPage(3, 2)
 	if err != nil {
