@@ -24,7 +24,7 @@ gconfig:
 #mysql相关
 mysql:
   master: #mysql实例名称，作为key用于表示某个mysql实例，自定义命名, 例如: local, master, slave, feed_master, ...
-    dsn: "admin:admin@tcp(101.43.55.108:3306)/hgoj?charset=utf8mb4&parseTime=True&loc=Local"  #[MUST]
+    dsn: "root:root@tcp(127.0.0.1:3306)/hgoj?charset=utf8mb4&parseTime=True&loc=Local"  #[MUST]
     dial_timeout: 5000    #连接超时时间, 单位: millisecond, {default: 5000}
     read_timeout: 5000    #读超时时间, 单位：millisecond, {default: 5000}
     write_timeout: 3000   #写超时时间, 单位：millisecond, {default: 3000}
@@ -34,7 +34,7 @@ mysql:
     debug_sql: true      #是否开启debug, {default: false}
 
   slave: #mysql实例名称，作为key用于表示某个mysql实例，自定义命名, 例如: local, master, slave, feed_master, ...
-    dsn: "admin:admin@tcp(101.43.55.108:3306)/hgoj?charset=utf8mb4&parseTime=True&loc=Local"  #[MUST]
+    dsn: "admin:admin@tcp(127.0.0.1:3306)/hgoj?charset=utf8mb4&parseTime=True&loc=Local"  #[MUST]
     dial_timeout: 5000    #连接超时时间, 单位: millisecond, {default: 5000}
     read_timeout: 5000    #读超时时间, 单位：millisecond, {default: 5000}
     write_timeout: 3000   #写超时时间, 单位：millisecond, {default: 3000}
