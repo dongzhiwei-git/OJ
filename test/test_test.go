@@ -21,13 +21,13 @@ func TestMain(m *testing.M) {
 
 //import (
 //	"inherited/internal"
-//	"log"
+//	"logs"
 //)
 //
 //func init() {
 //	// 初始化依赖模块
 //	if err := internal.Init(); err != nil {
-//		log.Println("Init failed." + err.Error())
+//		logs.Println("Init failed." + err.Error())
 //		return
 //	}
 //

@@ -2,8 +2,8 @@ package router
 
 import (
 	"fmt"
-	"inherited/internal/api"
-	"inherited/internal/pkg"
+	"hgoj/internal/api"
+	"hgoj/internal/pkg"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

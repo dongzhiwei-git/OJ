@@ -32,7 +32,7 @@ import (
 //
 //		defer func() {
 //			if err := recover(); err != nil {
-//				log.Printf("Panic info is: %v", err)
+//				logs.Printf("Panic info is: %v", err)
 //			}
 //		}()
 //

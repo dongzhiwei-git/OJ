@@ -2,9 +2,10 @@ package services
 
 import (
 	"github.com/sirupsen/logrus"
-	"inherited/internal/dao"
-	"inherited/internal/models"
-	"inherited/internal/pkg"
+	"hgoj/internal/dao"
+	"hgoj/internal/models"
+	"hgoj/internal/pkg"
+
 	"time"
 )
 

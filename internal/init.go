@@ -1,9 +1,9 @@
 package internal
 
 import (
-	"inherited/internal/conf"
-	"inherited/internal/dao"
-	log2 "inherited/internal/log"
+	"hgoj/internal/conf"
+	"hgoj/internal/dao"
+	log2 "hgoj/internal/log"
 	"log"
 
 	"github.com/pkg/errors"

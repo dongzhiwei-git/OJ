@@ -1,9 +1,9 @@
 package services
 
 import (
-	"inherited/internal/dao"
-	"inherited/internal/models"
-	"inherited/internal/pkg"
+	"hgoj/internal/dao"
+	"hgoj/internal/models"
+	"hgoj/internal/pkg"
 	"log"
 	"time"
 )
@@ -28,7 +28,7 @@ type Problem struct {
 	FileName     string    `json:"fileName"     binding:"required"`
 }
 
-//QueryAllProblem 查询所有题目
+// QueryAllProblem 查询所有题目
 func (pr *Problem) QueryAllProblem() (*[]*models.Problem, error) {
 	problem := new([]*models.Problem)
 	err := dao.Orm.Find(problem).Error
@@ -37,7 +37,7 @@ func (pr *Problem) QueryAllProblem() (*[]*models.Problem, error) {
 }
 
 // QueryProblemByPageNum 通过页码查询题目
-func (pr *Problem) QueryProblemByPageNum(num, size int) (	proInfo []*models.Problem, count int64, err error) {
+func (pr *Problem) QueryProblemByPageNum(num, size int) (proInfo []*models.Problem, count int64, err error) {
 	start := pkg.StartNum(num, size)
 	err = dao.Orm.Order("problem_id desc").Limit(size).Offset(start).Find(&proInfo).Error
 	err = dao.Orm.Model(&models.Problem{}).Count(&count).Error
@@ -72,8 +72,9 @@ func (pr *Problem) DelProblemById(id int32) error {
 
 	return err
 }
-// 	QueryProblemByProblemID 通过ID获取某一个题目
-func (pr *Problem)QueryProblemByProblemID( id int) (pro models.Problem, err error){
+
+// QueryProblemByProblemID 通过ID获取某一个题目
+func (pr *Problem) QueryProblemByProblemID(id int) (pro models.Problem, err error) {
 	proID := int32(id)
 	err = dao.Orm.Debug().Where("problem_id = ?", proID).Find(&pro).Error
 	return pro, err

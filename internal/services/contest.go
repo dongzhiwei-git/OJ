@@ -1,8 +1,8 @@
 package services
 
 import (
-	"inherited/internal/dao"
-	"inherited/internal/models"
+	"hgoj/internal/dao"
+	"hgoj/internal/models"
 )
 
 type Contest struct {

@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"inherited/internal"
-	"inherited/internal/router"
+	"hgoj/internal"
+	"hgoj/internal/router"
 	"log"
 )
 

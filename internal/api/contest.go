@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/sirupsen/logrus"
-	"inherited/internal/models"
+	"hgoj/internal/models"
 	"net/http"
 )
 

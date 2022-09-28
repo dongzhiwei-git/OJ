@@ -1,4 +1,4 @@
-module inherited
+module hgoj
 
 go 1.18
 

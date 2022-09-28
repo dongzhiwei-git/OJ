@@ -3,8 +3,9 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
-	"inherited/internal/dhttp"
-	"inherited/internal/services"
+	"hgoj/internal/dhttp"
+	"hgoj/internal/services"
+
 	"net/http"
 	"strconv"
 )
