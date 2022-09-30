@@ -12,7 +12,7 @@ func CheckAllUserByAdmin(ctx *gin.Context) {
 	User := new(services.User)
 	users, err := User.CheckAllUserByAdmin()
 	if err != nil {
-		fmt.Printf("[api.QueryAllProblem], err: %v", err)
+		fmt.Printf("[api.CheckAllUserByAdmin], err: %v", err)
 
 		return
 	}
