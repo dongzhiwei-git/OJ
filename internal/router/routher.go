@@ -21,8 +21,8 @@ func InitRouter() {
 	r.GET("/problem", api.QueryAllProblem)
 	r.GET("/problem_page", api.QueryProblemByPageNum)
 	r.GET("/problem_by_proid", api.QueryProblemByProblemID)
-	
-	r.GET("/user", api.CheckAllUserByAdmin)
+
+	r.GET("/user", api.GetAllAdmin)
 	// 保存测试数据
 
 	var admin = r.Group("/admin")
