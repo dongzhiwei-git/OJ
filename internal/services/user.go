@@ -7,8 +7,8 @@ import (
 
 type User struct{}
 
-// CheckAllUserByAdmin 管理员查询所有用户信息
-func (user *User) CheckAllUserByAdmin() (*[]*models.User, error) {
+// GetAllUserByAdmin 管理员查询所有用户信息
+func (user *User) GetAllUserByAdmin() (*[]*models.User, error) {
 	users := new([]*models.User)
 	err := dao.Orm.Find(users).Error
 	return users, err

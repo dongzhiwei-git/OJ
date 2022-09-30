@@ -7,10 +7,10 @@ import (
 	"net/http"
 )
 
-// CheckAllUserByAdmin 管理员查询所有用户信息
-func CheckAllUserByAdmin(ctx *gin.Context) {
+// GetAllUserByAdmin 管理员查询所有用户信息
+func GetAllUserByAdmin(ctx *gin.Context) {
 	User := new(services.User)
-	users, err := User.CheckAllUserByAdmin()
+	users, err := User.GetAllUserByAdmin()
 	if err != nil {
 		fmt.Printf("[api.CheckAllUserByAdmin], err: %v", err)
 
