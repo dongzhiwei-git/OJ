@@ -1,1 +1,4 @@
 .idea/
+log/
+logs/
+conf/web.dev.yaml

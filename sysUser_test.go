@@ -3,9 +3,10 @@ package main
 import (
 	"fmt"
 	"github.com/sirupsen/logrus"
-	"inherited/internal"
-	"inherited/internal/models"
-	"inherited/internal/services"
+	"hgoj/internal"
+	"hgoj/internal/models"
+	"hgoj/internal/services"
+
 	"log"
 	"os"
 	"testing"
@@ -110,7 +111,7 @@ func TestQueryProblemByPageNum(t *testing.T) {
 
 }
 
-func TestQueryProblemByProblemID(t *testing.T){
+func TestQueryProblemByProblemID(t *testing.T) {
 	pro := new(services.Problem)
 	proInfo, err := pro.QueryProblemByProblemID(27)
 	if err != nil {

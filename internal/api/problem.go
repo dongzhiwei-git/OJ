@@ -2,6 +2,8 @@ package api
 
 import (
 	"fmt"
+	log2 "github.com/dongzhiwei-git/dzwlib/pkgs/log"
+	"github.com/dongzhiwei-git/dzwlib/pkgs/terror"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/sirupsen/logrus"
@@ -25,10 +27,15 @@ const (
 
 func QueryAllProblem(ctx *gin.Context) {
 	problem := new(services.Problem)
-	pro_set, err := problem.QueryAllProblem()
+	pro_set, err := problem.QueryAllProblem(ctx)
 	if err != nil {
-		fmt.Printf("[api.QueryAllProblem], err: %v", err)
+		log2.FromContext(ctx).Error("call VerifyProjectItemName failed:",
+			terror.TraceError(fmt.Errorf("[api.QueryAllProblem], err: %v", err)))
 
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"data":   pro_set,
+			"reason": err,
+		})
 		return
 	}
 
