@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"fmt"
 	"github.com/dongzhiwei-git/dzwlib/pkgs/terror"
 	"hgoj/internal/dao"
 	"hgoj/internal/models"
@@ -34,9 +33,11 @@ type Problem struct {
 // QueryAllProblem 查询所有题目
 func (pr *Problem) QueryAllProblem(ctx context.Context) (*[]*models.Problem, error) {
 	problem := new([]*models.Problem)
-	err := dao.Orm.Find(problem).Error
+	if err := dao.Orm.Find(problem).Error; err != nil {
+		return nil, terror.Trace(err)
+	}
 
-	return problem, terror.Trace(fmt.Errorf("test   err: %v", err))
+	return problem, nil
 }
 
 // QueryProblemByPageNum 通过页码查询题目

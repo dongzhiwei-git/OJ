@@ -30,10 +30,9 @@ func QueryAllProblem(ctx *gin.Context) {
 	pro_set, err := problem.QueryAllProblem(ctx)
 	if err != nil {
 		log2.FromContext(ctx).Error("call VerifyProjectItemName failed:",
-			terror.TraceError(fmt.Errorf("[api.QueryAllProblem], err: %v", err)))
+			terror.TraceError(err))
 
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"data":   pro_set,
 			"reason": err,
 		})
 		return
