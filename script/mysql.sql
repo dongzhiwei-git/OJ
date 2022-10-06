@@ -77,3 +77,26 @@ CREATE TABLE `need`
     PRIMARY KEY (`number`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='需求表';
+
+
+CREATE TABLE `host`
+(
+    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `cpu_type`     varchar(30)         NOT NULL DEFAULT '' COMMENT 'cpu类型',
+    `cpu_price`    float  NOT NULL DEFAULT 0 COMMENT 'cpu价格',
+    `monitor_type`     varchar(30)         NOT NULL DEFAULT '' COMMENT '显示器类型',
+    `monitor_price`    float  NOT NULL DEFAULT 0 COMMENT '显示器价格',
+    `main_board_type`     varchar(30)         NOT NULL DEFAULT '' COMMENT '主板类型',
+    `main_board_price`    float  NOT NULL DEFAULT 0 COMMENT '主板价格',
+    `power_type`     varchar(30)         NOT NULL DEFAULT '' COMMENT '电源类型',
+    `power_price`    float  NOT NULL DEFAULT 0 COMMENT '电源价格',
+    `ssd_type`     varchar(30)         NOT NULL DEFAULT '' COMMENT 'ssd类型',
+    `ssd_price`    float  NOT NULL DEFAULT 0 COMMENT 'ssd价格',
+    `memory_type`     varchar(30)         NOT NULL DEFAULT '' COMMENT '内存类型',
+    `memory_price`    float  NOT NULL DEFAULT 0 COMMENT '内存条价格',
+    `crate_type`     varchar(30)         NOT NULL DEFAULT '' COMMENT '机箱类型',
+    `crate_price`    float  NOT NULL DEFAULT 0 COMMENT '机箱价格',
+    `total_price`    float  NOT NULL DEFAULT 0 COMMENT '总价格',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='主机表';

@@ -104,6 +104,34 @@ func QueryProblemByProblemID(ctx *gin.Context) {
 
 }
 
+func GetAllHostByArea(ctx *gin.Context) {
+	min, _ := strconv.Atoi(ctx.Query("min"))
+	max, _ := strconv.Atoi(ctx.Query("max"))
+	if min <= 0 && max <= 0 {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": dhttp.ParaInvaild,
+			"msg":  "参数无效",
+		})
+		logrus.Info("[参数无效]")
+		return
+	}
+	pro := new(services.Host)
+	proInfo, err := pro.QueryHostByPriceArea(min, max)
+	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code": dhttp.DatabaseRError,
+		})
+		logrus.Info("[数据库查询失败]")
+
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"msg":  "successful",
+		"data": proInfo,
+	})
+
+}
+
 // FileUpload 上传测试数据zip
 func FileUpload(ctx *gin.Context) {
 
